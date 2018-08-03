@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="617612e0-afd5-41d3-95ce-49637d278b92" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
 	<flow name="hiFlow" doc:id="1e2ac8d1-0b3c-4bf4-a070-4053aafe093a" >
-		<logger level="INFO" doc:name="Logger" doc:id="e863afad-3477-4fb0-9068-ff89ac7136cb" />
+		<http:listener doc:name="Listener" doc:id="2cf4c4a8-ffe9-4382-8c68-abdf7b1fb277" config-ref="HTTP_Listener_config" path="/test">
+			<ee:repeatable-file-store-stream />
+		</http:listener>
+		<try doc:name="Try" doc:id="4a133b03-408a-4cdb-adf6-1e55ceb0ff8b" >
+			<logger level="INFO" doc:name="Logger" doc:id="e863afad-3477-4fb0-9068-ff89ac7136cb" />
+		</try>
 	</flow>
 </mule>
