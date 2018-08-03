@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="bc70a151-6514-4725-9959-15bd3f886f45" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="helloFlow" doc:id="886eeb0a-d336-47cb-8486-417f3ed47194" >
+		<http:listener doc:name="Listener" doc:id="c3b3bbc1-c998-4dee-ba67-17ccb4653890" config-ref="HTTP_Listener_config" path="/hello">
+			<ee:repeatable-file-store-stream />
+		</http:listener>
+		<logger level="INFO" doc:name="Logger" doc:id="1f392a49-c626-4a3b-b4e7-59d9256af17a" />
+	</flow>
+</mule>
